@@ -1,0 +1,199 @@
+.navBar{
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgb(5, 5, 5);
+    height: 60px;
+    padding: 10px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: rgba(255, 253, 253, 0.99); /* 90% opaque white */
+    .left{
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        flex:1;
+        min-width: 0;
+
+        span{
+           font-weight: bold;
+           font-size: 30px;
+           background:linear-gradient(to right, #ff6a00, #ee0979, #8e2de2);
+           background-clip: text;
+           color: transparent;
+        }
+        .icons{
+          display: flex;
+          align-items: center;
+          gap:20px;
+
+          img:nth-child(4){
+            display:none;
+          }
+        }
+        
+        .search{
+            display: flex;
+            align-items: center;
+            border: 1px solid rgb(228, 228, 228);
+            flex:1;
+            border-radius: 5px;
+            max-width: 500px;
+            min-width:100px;
+            // background-color: white;
+            gap:5px;
+            padding: 5px;
+            overflow:hidden ;
+            
+            input{
+            padding: 5px;
+            border:none;
+            outline: none;
+            flex:1;
+            height: 100%;
+           }
+              
+           @media screen and (max-width:1030px){
+             max-width: 350px;
+           }
+          }
+          
+        }
+        
+      .stories{
+        display: none;
+      }
+
+    .right{
+        display: flex;
+        align-items: center;
+        gap:25px;
+
+        .searchIcon{
+        display: none;
+        }
+        // overflow: hidden;
+      // .user{
+      //    display: flex;
+      //    align-items: center;
+      //    justify-content: center;
+      //    gap: 15px;
+      //    font-weight: 500;
+      //    border-left: 2px solid lightgray;
+      //    padding-left: 10px;
+      //   //  background-color: black;
+      //   //  color: white;
+      //    .enlarged{
+      //           position: fixed;
+      //           top: 50%;
+      //           left: 50%;
+      //           transform: translate(-50%, -50%);
+      //           width: 400px; // Or any desired large size
+      //           height: 400px;
+      //           z-index: 1000; // Bring to front
+      //           // border: px solid white;
+      //           box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      //           transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
+      //           border-radius:50%;
+      //    }
+      //   .img{
+      //     height: 50px;
+      //     width: 50px;
+      //     border-radius: 50%;
+      //     object-fit: cover;
+      //   }
+       
+
+      // }
+
+      .logout{
+        padding: 10px;
+        height: 40px;
+        outline: none;
+        border: none;
+        border-radius: 7px;
+        font-size: 15px;
+        font-weight: bold;
+        background-color: red;
+        color: white;
+      }
+      .logout:hover{
+        box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.3);
+      }
+    }
+
+
+     @media screen and (max-width:820px){
+       flex-direction: column;
+       padding: 20px;
+      //  height: 160px;
+
+       .left{
+          flex:0;
+          width: 100%;
+          justify-content: space-between;
+
+       
+
+       .icons{
+         img:nth-child(4){
+          display:block;
+          width: 17px;
+          height: 17px;
+         }
+      }
+
+       .search{
+        display: none;
+       }
+      }
+      .right{
+        display: none;
+       }
+    }
+
+    @media screen and (max-width: 700px) {
+    flex-direction: column;       
+    align-items: center;
+    height:auto;
+    gap:18px;
+    position:static;
+    z-index: auto;
+    border: none;
+    padding: 5px 10px;
+    // margin-bottom: 20px;
+    .left {
+      flex: 0;
+      width: 100%;
+      justify-content: space-between;
+      // margin-bottom: 7px;
+      span {
+        font-size: 25px;          // smaller logo
+        // margin-bottom: 10px;    
+        // cursor: none;  // space below logo
+      }
+      .icons{
+         img:nth-child(4){
+          display:block;
+          width: 17px;
+          height: 17px;
+         }
+      }
+      .search {
+        display: none;            // hide input/search
+      }
+    }
+    
+    .stories{
+      display: flex;
+      
+    }
+    .right {
+      
+      display: none;
+    }
+  }
+
+  
+}

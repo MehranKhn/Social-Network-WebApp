@@ -1,0 +1,50 @@
+.rightBar.dark{
+    .contentContainer{
+        color: white;
+        
+        .card{
+            transition: background-color 0.3s ease-in-out;
+            background-color: rgb(20, 20, 20);
+
+            .item{
+                span{
+                    color: rgb(215, 200, 200);
+                }
+
+                .user{
+                    .userInfo{
+                       span{
+                          color: white;
+                       }
+                       
+                    }
+
+                    .activities{
+                        .info{
+                            .name{
+                                color:white;
+                            }
+                            .action{
+                                color: rgb(214, 198, 198);
+                            }
+                        }
+                        .time{
+                            color: rgb(252, 241, 241);
+                        }
+                    }
+                }
+            }
+        }
+
+        .item{
+            .user{
+                .online{
+                    span{
+
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+}

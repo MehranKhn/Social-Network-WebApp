@@ -1,0 +1,211 @@
+.rightBar{
+   
+    flex: 4;
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 60px);
+    overflow: hidden;
+    padding: 20px;
+    display: flex;
+    
+    .contentContainer{
+        width:100%;
+        display: flex;
+        flex-direction: column;
+        // flex:0 0 330px; 
+        overflow: auto;
+        gap: 20px;
+        &::-webkit-scrollbar {
+        width: 7px; /* slim scrollbar */
+            }
+            &::-webkit-scrollbar-track{
+                background: transparent;
+                border-radius: 10px;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+                background: transparent; /* thumb hidden initially */
+                border-radius: 10px;
+            }
+            
+            // Show lighter scrollbar on hover
+            &:hover::-webkit-scrollbar-thumb {
+                background: rgba(0, 0, 0, 0.4); // light grey thumb
+            }
+            &:hover::-webkit-scrollbar {
+                background: rgba(233, 213, 213, 0.1); // faint track
+            }
+
+
+            .card{
+                background-color: white;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                gap:10px;
+                box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.09);
+                border-radius: 5px;
+                
+                .item{
+                    display: flex;
+                    flex-direction: column;
+
+                    span{
+                        color: gray;
+                        font-size: 16px;
+                    }
+                    .user{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 10px;
+                        
+                        @media  screen and (max-width:1300px) {
+                            flex-direction: column;
+                            align-items: self-start;
+                            justify-content: center;
+                            gap:10px;
+                        }
+                        .userInfo{
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap:10px;
+                            
+                            img{
+                                width: 60px;
+                                height: 60px;
+                                border-radius: 50%;
+                                object-fit:cover;
+                                flex-shrink:0;
+                            }
+                            
+                            
+                            span{
+                                color: black;
+                                font-size: 16px;
+                                font-weight: 500;
+                            }
+                        }
+                        
+                        .activities {
+                                display: flex;
+                                align-items: center;
+                                justify-content: space-between;
+                                flex-wrap: wrap;   // ✅ allow wrapping
+                                gap: 10px;
+                                min-width: 0;
+
+                                .info {
+                                    display: flex;
+                                    align-items: center;
+                                    // justify-content: space-between;
+                                    gap: 8px;
+                                    // flex: 1;  // ✅ allow it to shrink and grow properly
+                                    min-width: 0;
+                                    img{
+                                        width: 60px;
+                                        height: 60px;
+                                        border-radius: 50%;
+                                        object-fit: cover;
+                                        flex-shrink: 0;
+                                    }
+                                    .name {
+                                    color: black;
+                                    font-size: 16px;
+                                    font-weight: 500;
+                                    }
+
+                                    .action {
+                                    color: gray;
+                                    font-size: 15px;
+                                    // ✅ default: wrap text
+                                    white-space: normal;
+                                    overflow: visible;
+                                    text-overflow: unset;
+                                    display: flex;
+                                    align-items:center ;
+                                    // ✅ Only ellipsize when screen is very small
+                                    @media screen and (max-width: 500px) {
+                                        white-space: nowrap;
+                                        overflow: hidden;
+                                        text-overflow: ellipsis;
+                                        max-width: 120px; // limit text area
+                                     }
+                                    }
+                                }
+
+                                .time {
+                                    font-size: 13px;
+                                    color: gray;
+                                    white-space: nowrap;
+                                    flex-shrink: 0;
+                                }
+                            }
+
+                                .buttons{
+                                   display: flex;
+                                   align-items: center;
+                                   gap:10px;
+                                   
+                                   button:first-child{
+                                       background-color: blue;
+                                       padding: 5px;
+                                       border: none;
+                                       color: white;
+                                   }
+                                    
+                                   button:nth-child(2){
+                                       background-color: red;
+                                       padding: 5px;
+                                       border: none;
+                                       color: white;
+                                   }
+                                }
+
+                                .online{
+                                    display: flex;
+                                    align-items: center;
+                                    gap: 10px;
+                                    width: 100%;
+                                    flex-wrap: nowrap;
+                                    .onlineImage{
+                                        position: relative;
+                                         img{
+                                        width: 60px;
+                                        height: 60px;
+                                        border-radius: 50%;
+                                        object-fit: cover;
+                                        flex-shrink: 0;
+                                       }
+                                       button{
+                                          position: absolute;
+                                          width: 13px;;
+                                          height: 13px;
+                                          border-radius: 50%;
+                                          top:0;
+                                          left:47px;
+                                          background-color: rgb(6, 237, 6);
+                                       }
+                                    }
+                                    
+                                    span{
+                                        font-size: 18px;
+                                        font-weight: 500;
+                                        color: black;
+                                    }
+                                }
+    
+                }
+            }
+
+        }
+       
+    }
+    
+    @media screen and (max-width:1280px){
+
+        display:none;
+    }
+  
+}

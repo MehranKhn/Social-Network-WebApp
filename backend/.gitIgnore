@@ -1,0 +1,70 @@
+# ----------------------------------------
+# SECURITY / ENVIRONMENT
+# ----------------------------------------
+.env
+.env.*
+secrets.json
+config.local.json
+*.db
+*.sqlite
+dump.rdb
+
+# ----------------------------------------
+# DEPENDENCIES / BUILD OUTPUT (Generic)
+# ----------------------------------------
+# Compiled/Build Artifacts
+/dist
+/build
+/target
+/out
+*.o
+*.class
+*.jar
+*.war
+*.exe
+
+# ----------------------------------------
+# PACKAGE MANAGER DEPENDENCIES
+# ----------------------------------------
+# Node.js
+/node_modules
+npm-debug.log*
+yarn-error.log*
+
+# Python
+/venv
+.venv
+__pycache__/
+*.py[cod]
+
+# PHP
+/vendor
+
+# ----------------------------------------
+# LOGS AND CACHE
+# ----------------------------------------
+/logs
+*.log
+*.tmp
+.cache
+.webassets-cache/
+
+# ----------------------------------------
+# TESTING AND COVERAGE
+# ----------------------------------------
+/coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
+# ----------------------------------------
+# IDE AND SYSTEM FILES
+# ----------------------------------------
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db

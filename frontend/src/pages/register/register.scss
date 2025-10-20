@@ -1,0 +1,107 @@
+.register{
+    min-height:100vh;
+    background-color: rgb(193,190,255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    .card{
+        width:70%;
+        display: flex;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        max-height: 1000px;
+        .right{
+            padding: 30px;
+            flex:1;
+            display:flex;
+            gap:30px;
+            flex-direction:column;
+             background: linear-gradient(to right, rgba(19, 18, 18, 0.3), rgba(22, 22, 22, 0.3)), url("https://media.istockphoto.com/id/1413735503/photo/social-media-social-media-marketing-thailand-social-media-engagement-post-structure.jpg?s=1024x1024&w=is&k=20&c=hoho5UxFMxRK4u2AmtYl2i-psyyZROlXRrqsGfx1LSw=");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            color: white;
+            h1{
+               font-size: clamp(2rem, 5vw, 100px)
+            //    line-height:
+            }
+            p{
+                font-size: 18px;
+            }
+            span{
+              font-size: 20px;
+            }
+            button{
+               background-color: white;
+               border: none;
+               padding: 10px;
+               width:50%;
+               cursor: pointer;
+               font-weight: bold;
+            }
+        }
+
+        .left{
+            flex:1;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            gap:50px;
+            h1{
+              color: #555;
+            }
+            form{
+                display: flex;
+                flex-direction: column;
+                gap: 30px;
+                input{
+                  border:none;
+                  border-bottom: 1px solid #555;
+                  padding: 20px 10px;
+                }
+
+                 button{
+                    width: 50%;
+                    padding: 10px;
+                    border: none;
+                    background-color: #938eef;
+                    color: white;
+                    font-weight: bold;
+                 }
+            }
+        }
+
+    }
+
+
+    @media screen and (max-width:800px){
+
+      padding: 20px;
+      .card{
+        flex-direction: column-reverse;
+        // width: 100%;
+        width: 400px;
+        height:auto;
+
+        .left{
+           flex:none;
+          padding:15px;
+          // text-align: center;
+
+          .left h1 {
+              font-size: clamp(2rem, 4vw, 3rem); /* ✅ smaller on mobile */
+            }
+        }
+
+        .right{
+
+          flex:none;
+          padding: 15px;
+        }
+      }
+
+    }
+}
