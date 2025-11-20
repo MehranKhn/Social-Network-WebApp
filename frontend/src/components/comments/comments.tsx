@@ -1,54 +1,56 @@
 import "./comments.scss";
-import umaidKhan from "../../assets/umaidKhan.jpg"
-import heroFaizan from "../../assets/heroFaizan.jpg"
-const comments=[
-    {
-        id:1,
-        userId:2,
-        comment:"Mashallah,Allah bless you",
-        name:"Arslan",
-        profilePicture:umaidKhan,
-    },
-    {
-        id:2,
-        userId:4,
-        comment:"Own Power,Own Rules,Own Kingdom",
-        name:"Inam",
-        profilePicture:heroFaizan,
-    },
-    {
-        id:3,
-        userId:6,
-        comment:"hata  waiiiii",
-        name:"Asif",
-        profilePicture:heroFaizan,
-    }
-]
 
-function Comments(){
+import PostComments from "./postComments";
+import { Link } from "react-router-dom";
+import moment from "moment";
+import useComments from "../../customHook/fetchComments";
+
+
+function Comments({postCardId}:{postCardId:number}){
+   
+   const {data:comments,isLoading,isError}=useComments(postCardId);
+    
     return(
         <div className="comments">
-            <div className="write">
-                <img src={heroFaizan} alt="PP" />
-                <input type="text" placeholder="Write a Comment"/>
-                <button>Post</button>
+
+            <div className="comments-list">
+                {isLoading ? (
+                    <p className="loading">Loading comments...</p>
+                ) : isError ? (
+                    <p className="error">Oops! Something went wrong.</p>
+                ) : (
+                comments?.map((comment) => (
+                    
+                    <div className="comment" key={`${postCardId}_${comment.id}`}>
+                    <div className="comment-header">
+                        <Link to={`/profile/${comment.commentUserId}`} className="user-link">
+                        {comment.profilePic ? (
+                            <img src={comment.profilePic} alt={comment.name} />
+                        ) : (
+                            <div className="profile-placeholder">
+                            {comment.name[0].toUpperCase()}
+                            </div>
+                        )}
+                        </Link>
+
+                        <div className="user-info">
+                        <span className="username">{comment.name}</span>
+                        <span className="time">{moment(comment.createdAt).fromNow()}</span>
+                        </div>
+                    </div>
+
+                    <div className="comment-body">
+                        <p>{comment.description}</p>
+                    </div>
+                    </div>
+                ))
+            )}
             </div>
-           {
-            comments.map(Comment=>(
-            
-                <div className="comment">
-                     <div className="user">
-                           <img src={Comment.profilePicture} alt="PP" />
-                           <span>{Comment.name}</span>
-                     </div>
-                     <div className="text">
-                        <p>{Comment.comment}</p>
-                        <span>1 hour ago</span>
-                  </div>
-                </div>
-            ))
-           }
-        </div>
+            <PostComments postCardId={postCardId} />
+            </div>
+
     )
 }
 export default Comments;
+
+  

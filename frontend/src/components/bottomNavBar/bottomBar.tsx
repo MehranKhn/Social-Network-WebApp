@@ -1,16 +1,21 @@
 import { useContext, useState } from "react";
 import search from "../../assets/search.svg";
 import { ThemeContext } from "../../contextApi/createContext";
+import { Link } from "react-router-dom";
 
 import "./bottomBar.scss";
 function BottomBar(){
       const [notifications,setNotifications]=useState(11);
+      const storedUser=localStorage.getItem('user');
+      const user=storedUser?JSON.parse(storedUser):null;
      const {theme}=useContext(ThemeContext);
     return(
         <div className={`bottomBar${theme=="light"?"":" dark"}`}>
            
              {/* profile */}
-             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#000000"><g fill="none" stroke="#000000" strokeWidth="1.5"><path strokeLinejoin="round" d="M4 18a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><circle cx="12" cy="7" r="3"/></g></svg>
+             <Link to={`/profile/${user?.id}`}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#000000"><g fill="none" stroke="#000000" strokeWidth="1.5"><path strokeLinejoin="round" d="M4 18a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><circle cx="12" cy="7" r="3"/></g></svg>
+             </Link>
               
               {/* Message */}
              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#000000"><g fill="none" stroke="#000000" strokeWidth="1.5"><rect width="16" height="12" x="4" y="6" rx="2"/><path d="m4 9l7.106 3.553a2 2 0 0 0 1.788 0L20 9"/></g></svg>

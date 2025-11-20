@@ -6,24 +6,27 @@ import LeftBar from "./components/leftBar/LeftBar";
 import Home from "./pages/home/Home";
 import Profile from "./pages/profile/Profile";
 import BottomBar from "./components/bottomNavBar/bottomBar";
+import { QueryClient,QueryClientProvider } from "@tanstack/react-query";
+import { useContext } from "react";
 
-import { useContext, useEffect, useState, type PropsWithChildren } from "react";
-
-import { RouterProvider,createBrowserRouter,Outlet,Navigate, useLocation } from "react-router-dom";
+import { RouterProvider,createBrowserRouter,Outlet, useLocation } from "react-router-dom";
 
 import { SideBarProvider } from "./contextApi/sideBarprovider";
 import ToggleThemeProvider from "./contextApi/toggleThemeProvider";
 import { ThemeContext } from "./contextApi/createContext";
-import { AuthContext } from "./contextApi/createContext";
+import ProtectedRoutes from "./utils/protectedRoutes";
+const queryClient=new QueryClient();
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useAxiosInterceptor } from "./interceptor/interceptor";
 
+import { Toaster } from "react-hot-toast";
 
 function App(){
-    
     const Layout=()=>{
+        useAxiosInterceptor();
         const location=useLocation();
         const hideRightLeft=location.pathname.startsWith("/profile");
         const {theme}=useContext(ThemeContext);
-
        return(
            <div style={theme=="light"?{backgroundColor:"#f1f4f5ff"}:{backgroundColor:"rgba(63, 54, 54, 1)",transition:"background-color 0.3s ease-in-out",minHeight:"100vh"}}>
                    <NavBar></NavBar>
@@ -43,15 +46,6 @@ function App(){
     }
 
       
-     const ProtectedRoutes=({children}:PropsWithChildren)=>{
-        const {isAuthenticated,loading}=useContext(AuthContext);
-        if(loading)return <h1>Loading...</h1>;
-        if(!isAuthenticated){
-            return <Navigate to={"/login"}/>
-        }
-        return children;
-     }
-
      const router=createBrowserRouter([
         {
             path:'/',
@@ -78,13 +72,28 @@ function App(){
      ])
 
     return(
-        <div className="App">
-            
+        <div className="App" style={{height:"100vh",justifyContent:"center",alignItems:"center"}}>
+
+            <Toaster position="bottom-center"  toastOptions={{
+                duration:3000,
+                style: {
+                    background: "#333",
+                    color: "#fff",
+                    borderRadius: "8px",
+                    padding: "12px 18px",
+                    fontSize:"18px",
+                    
+                    },
+            }}/>
+             <QueryClientProvider client={queryClient}>
                 <ToggleThemeProvider>
                     <SideBarProvider>
                     <RouterProvider router={router}></RouterProvider>
                     </SideBarProvider>
                 </ToggleThemeProvider>
+                <ReactQueryDevtools initialIsOpen={true} />
+            </QueryClientProvider>
+
         </div>
     )
 }

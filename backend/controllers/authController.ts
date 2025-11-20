@@ -52,12 +52,12 @@ import jwt from "jsonwebtoken";
   
             if(!checkPassowrd) return res.status(400).json({msg:"Incorrect password or Username!"});
   
-             const token=jwt.sign({id:Rows[0]?.id},process.env.JWT_SECRET!,{expiresIn:'2m'});
+             const token=jwt.sign({id:Rows[0]?.id},process.env.JWT_SECRET!,{expiresIn:'20m'});
              const {password,...others}=Rows[0]!;
   
              res.cookie("token",token,{
                httpOnly:true,
-               maxAge:2*60*1000,
+               maxAge:20*60*1000,
                sameSite:"lax",
                secure:false
              }).status(200).json(others);
@@ -69,10 +69,14 @@ import jwt from "jsonwebtoken";
      },
 
      logout:(req:Request,res:Response)=>{
+           
            res.clearCookie("token",{
+            httpOnly:true,
             secure:false,
-            sameSite:"lax"
+            sameSite:"lax",
+            path:"/"
            }).status(200).json({msg:"User has been logged out!"});
+           console.log(req.cookies.token);
      },
      
      me:(req:Request,res:Response)=>{

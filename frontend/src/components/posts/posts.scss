@@ -1,3 +1,45 @@
+.spinner {
+  /* 1. Dimensions and Shape */
+  border: 4px solid rgba(0, 0, 0, 0.1); /* Light, transparent border (the rounded frame) */
+  border-left-color: #3498db; /* The solid color that will appear to spin */
+  border-radius: 50%; /* Makes the square element perfectly round */
+  
+  /* 2. Size */
+  width: 80px;
+  height: 80px;
+  
+  /* 3. Animation */
+  animation: spin 1s linear infinite; /* Apply the 'spin' animation */
+}
+.posts{
+
+  .no-posts{
+    margin-top: 30px;
+    font-size: 130px;
+    color: rgb(224, 216, 216);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-weight: medium;
+  
+  }
+
+  @media screen and (max-width:600px) {
+        .no-posts{
+        font-size: 60px;
+        font-weight: bold;
+      
+      }
+  }
+}
+
+/* Define the animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); /* Start at 0 degrees */
+  }
+  100% {
+    transform: rotate(360deg); /* End at 360 degrees, completing one full rotation */
+  }
+}
 @media screen and (max-width:600px){
     .posts:last-child{
         margin-bottom: 20px;

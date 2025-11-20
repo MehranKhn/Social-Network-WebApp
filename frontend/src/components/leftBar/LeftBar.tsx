@@ -30,7 +30,6 @@ function LeftBar(){
     function toggleImage(){
     setIsImageBig(prev=>!prev);
   }
-  console.log(userData);
     return <div className={`leftBar${sidebar?' open':''} ${theme=="light"?"":"dark"}`}>
          <div className="container">
              <div className="menu">

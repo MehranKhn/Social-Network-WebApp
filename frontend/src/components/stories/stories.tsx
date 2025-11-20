@@ -4,8 +4,21 @@ import heroFaizan from "../../assets/heroFaizan.jpg";
 import { useContext, useEffect, useRef, useState } from "react";
 import left from "../../assets/left.png"
 import next from "../../assets/next.png"
-
+import StoryOptions from "../StoryFunctionalities/addstory/storyOptions";
 import { ThemeContext } from "../../contextApi/createContext";
+import useFetchFriendsStories from "../../customHook/fetchFrndsStories";
+import DisplayStory from "../StoryFunctionalities/showStory/displayStory";
+
+interface story{
+   id:number,
+   storyImage:string,
+   storyText:string,
+   createdAt:string,
+   profilePic:string,
+   name:string,
+   storyUserId:number
+}
+
 
 export default function Stories(){
 
@@ -13,13 +26,22 @@ export default function Stories(){
    const containerRef=useRef<HTMLDivElement>(null);
    const [leftVisible,setLeftVisible]=useState(false);
    const [rightVisible,setRightVisible]=useState(true);
-    
+   const [storyOptions,setStoryOptions]=useState(false);
    const {theme}=useContext(ThemeContext);
- useEffect(()=>{
-   if(containerRef.current==null)return;
-     setLeftVisible(translate>0);
-     setRightVisible(translate+containerRef.current.clientWidth<containerRef.current.scrollWidth);
- },[translate])
+   const [displayStory,setDisplayStory]=useState(false);
+   const {data,isLoading,isError}=useFetchFriendsStories("/story/get-stories");
+   const [userStories, setUserStories] = useState<story[]>([]);
+   
+
+   const user=localStorage.getItem('user');
+   const currentUser=JSON.parse(user!);
+   console.log(currentUser.username)
+   useEffect(()=>{
+      if(containerRef.current==null)return;
+      setLeftVisible(translate>0);
+      setRightVisible(translate+containerRef.current.clientWidth<containerRef.current.scrollWidth);
+      
+ },[translate,data?.stories])
 
    //translate functions
 
@@ -50,91 +72,38 @@ export default function Stories(){
       })
    }
   
-   const stories=[
-      {
-         id:1,
-         image:umaidKhan,
-         name:"Umaid"
-      },{
-         id:2,
-         image:heroFaizan,
-         name:"Faizan"
-      },{
-         id:3,
-         image:umaidKhan,
-         name:"Faisal"
-      },{
-         id:4,
-         image:heroFaizan,
-         name:"Asif"
-      },
-      {
-         id:5,
-         image:heroFaizan,
-         name:"Furqan"
-      },{
-         id:6,
-         image:umaidKhan,
-         name:"Fayaz"
-      },{
-         id:7,
-         image:umaidKhan,
-         name:"Adil"
-      },
-      {
-        id:8,
-         image:umaidKhan,
-         name:"Adil"
-      },
-      {
-         id:9,
-         image:umaidKhan,
-         name:"Adil"
-      },
-      {
-         id:10,
-         image:umaidKhan,
-         name:"Adil"
-      },
-      {
-         id:11,
-         image:umaidKhan,
-         name:"Adil"
-      },
-      {
-         id:12,
-         image:umaidKhan,
-         name:"Adil"
-      },
-      {
-         id:13,
-         image:umaidKhan,
-         name:"Adil"
-      },
-      {
-         id:14,
-         image:umaidKhan,
-         name:"Adil"
-      }
-   ]
+   function filterDisplayStories(userId:number){
+      const stories=data.stories.filter((s:story)=>s.storyUserId==userId);
+      setUserStories(stories);
+      setDisplayStory(true);
+   }
+   
+   if(isLoading)return <div>...loading</div>
+   if(isError) return <div>Failed to load stories</div>
+     
      return (
         <div className="stories">
 
-            <div className={`user${theme=='light'?"":" dark"}`}>
-                <img src={heroFaizan} alt="faizan" />
+               {displayStory && <DisplayStory story={userStories} onClose={() => setDisplayStory(false)}></DisplayStory>}
+       
+        <div className="user-wrapper">
+            <div className={`user${theme=='light'?"":" dark"}`} onClick={()=>setStoryOptions(prev=>!prev)}>
+               
+                {currentUser.profilePic?<img src={currentUser.profilePic} alt="user-profile" />:<span className="user-profile-text">{currentUser.username[0].toUpperCase()}</span>}
                 <span>Your Story</span>
                 <button>+</button>
             </div>
-
+                {storyOptions && <StoryOptions setStoryOptions={setStoryOptions}/>}
+        </div>
 
          <div className="stories-wrapper">
             <div className="container" ref={containerRef}  style={{transform:`translateX(-${translate}px)`}}>
 
                 {
-                    stories.map((story)=>{
-                        return <div key={story.id} className="story">
-                            <img src={story?.image} alt="story" />
-                            <span>{story.name}</span>
+                    data.stories.map((story:story)=>{
+                        return <div key={story.id} className="story" onClick={()=>filterDisplayStories(story.storyUserId)}>
+                            {story.profilePic?<img src={story?.profilePic} alt="story" />:<span className="story-profile-text">{story.name[0].toUpperCase()}</span>}
+                            <span >{story.name}</span>
                         </div>
                     })
                 }

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useContext, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../contextApi/createContext';
+import toast from 'react-hot-toast';
 
 function Login(){
     const [inputs,setInput]=useState({
@@ -11,7 +12,7 @@ function Login(){
         password:""
     });
     const [err,setErr]=useState<Record<string,string>>({});
-    const {setIsAuthenticated}=useContext(AuthContext);
+    const {setIsAuthenticated,setCurrentUserId}=useContext(AuthContext);
     const [loading,setLoading]=useState(false);
 
     const Navigate=useNavigate();
@@ -47,12 +48,16 @@ function Login(){
 
         try{
            setLoading(true);
-            const response=await axios.post("http://localhost:3000/api/auth/login",inputs,{
+            const response=await axios.post("http://192.168.12.31:3000/api/auth/login",inputs,{
                 withCredentials:true
             });
             if(response.status==200){
-                localStorage.setItem("user",JSON.stringify(response.data));
                 setIsAuthenticated(true);
+                setCurrentUserId(response.data.id);
+                const {id,...rest}=response.data;
+
+                localStorage.setItem("user",JSON.stringify(rest));
+                toast.success("Logged In Successfully!");
                 Navigate("/")
             }
             

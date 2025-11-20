@@ -15,7 +15,6 @@ import { useContext } from "react";
 import { AuthContext, SidebarContext } from "../../contextApi/createContext";
 import { ThemeContext } from "../../contextApi/createContext";
 import axios from "axios";
-
 import Stories from "../stories/stories";
 
 function NavBar(){
@@ -24,6 +23,10 @@ function NavBar(){
   const [notifications,setNotifications]=useState(11);
   const location=useLocation();
   const hideStories=location.pathname.startsWith("/profile");
+
+  //get the user from the localStorage
+  const storedUser=localStorage.getItem('user');
+  const user=storedUser?JSON.parse(storedUser):null;
 
   const {sidebar,toggleSideBar}=useContext(SidebarContext);
   const {theme,toggleTheme}=useContext(ThemeContext);
@@ -39,7 +42,7 @@ function NavBar(){
 
     try{
 
-      const res=await axios.post("http://localhost:3000/api/auth/logout",{
+      const res=await axios.post("http://192.168.12.31:3000/api/auth/logout",{},{
         withCredentials:true
       });
       setIsAuthenticated(false);
@@ -59,7 +62,9 @@ function NavBar(){
              
 
              <div className="icons">
+              <Link to={"/"}>
                 <img src={home} alt="home"/>
+              </Link>
                 {theme=="light"?<img src={moon} alt="moon" onClick={toggleTheme}/>:<img src={sun} alt="moon" onClick={toggleTheme}/>}
                 <img src={tools} alt="tools"/>
                 {sidebar?<img src={close} alt="menu"  onClick={toggleSideBar}/>:<img src={menu} alt="menu"  onClick={toggleSideBar}/>}
@@ -74,7 +79,10 @@ function NavBar(){
 
         <div className="right">
              {/* profile */}
-             <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#000000"><g fill="none" stroke="#000000" strokeWidth="1.5"><path strokeLinejoin="round" d="M4 18a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><circle cx="12" cy="7" r="3"/></g></svg>
+
+             <Link to={`/profile/${user?.id}`}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="#000000"><g fill="none" stroke="#000000" strokeWidth="1.5"><path strokeLinejoin="round" d="M4 18a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><circle cx="12" cy="7" r="3"/></g></svg>
+             </Link>
               
               {/* Message */}
              <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="#000000"><g fill="none" stroke="#000000" strokeWidth="1.5"><rect width="16" height="12" x="4" y="6" rx="2"/><path d="m4 9l7.106 3.553a2 2 0 0 0 1.788 0L20 9"/></g></svg>

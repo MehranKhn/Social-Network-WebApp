@@ -1,0 +1,134 @@
+
+
+.show-options{
+    position: absolute;
+    width: 180px;
+    height: auto;
+    padding: 5px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.3);
+    display: flex;
+    flex-direction: column;
+    animation: scaleIn 0.3s ease-in-out;
+    z-index: 10;
+    position: absolute;
+    top: 80%;
+    left: 80px;
+
+   &.loader-container{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100px;
+
+      .loader{
+        padding: 10px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border-color: rgba(0,0,0,0.1);
+        border-left-color: rgb(44, 87, 194);
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+    }
+    .error-text {
+      color: red;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .view-story{
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        padding: 5px;
+        cursor: pointer;
+        border-radius: 10px;
+        
+        img{
+          width: 29px;
+          height: 29px;
+        }
+        &:hover{
+        background-color: rgb(232, 232, 232);
+      }
+      }
+
+
+    .File-input{
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-radius: 10px;
+      padding: 5px;
+      
+      &:hover{
+        background-color: rgb(232, 232, 232);
+      }
+      label{
+        cursor: pointer;
+        display: flex;
+        gap: 20px;
+        align-items: center;
+        img{
+          width: 29px;
+          height: 29px;
+        }
+      }
+    }
+
+    .text-input{
+      display: flex;
+      gap: 20px;
+      border-radius: 10px;
+      align-items: center;
+      padding: 5px;
+      cursor: pointer;
+      
+      img{
+        width: 29px;
+        height: 29px;
+      }
+
+      &:hover{
+        background-color: rgb(232, 232, 232);
+      }
+    }
+
+    @keyframes scaleIn {
+      from{
+        transform:scale(0.3);
+        opacity: 0;
+      }
+      to{
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    @media  screen and (max-width:468px) {
+       width: 160px;
+       top: 90%;
+       left:60px;
+       .File-input{
+        label{
+          img{
+            width: 24px;
+            height: 24px;
+          }
+        }
+       }
+       .text-input{
+         img{
+          width: 24px;
+          height: 24px;
+         }
+       }
+    }
+}
